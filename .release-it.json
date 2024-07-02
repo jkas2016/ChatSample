@@ -1,0 +1,78 @@
+{
+  "git": {
+    "requireCleanWorkingDir": true,
+    "requireBranch": [ "master" ],
+    "tagName": "v${version}",
+    "commitMessage": "chore(release): Release v${version}"
+  },
+  "npm": {
+    "publish": false
+  },
+  "gitlab": {
+    "release": true,
+    "tokenRef": "COMMON_BACKOFFICE_RADZEN_GITLAB_TOKEN"
+  },
+  "plugins": {
+    "@release-it/conventional-changelog": {
+      "infile": "CHANGELOG.md",
+      "header": "# Changelog",
+      "preset": {
+        "name": "conventionalcommits",
+        "types": [
+          {
+            "type": "feat",
+            "section": "Features"
+          },
+          {
+            "type": "chore",
+            "section": "Chores"
+          },
+          {
+            "type": "refactor",
+            "section": "Code Refactoring"
+          },
+          {
+            "type": "ci",
+            "section": "Continuous Integrations"
+          },
+          {
+            "type": "build",
+            "section": "Builds"
+          },
+          {
+            "type": "perf",
+            "section": "Performance Improvements"
+          },
+          {
+            "type": "fix",
+            "section": "Bug Fixes"
+          },
+          {
+            "type": "revert",
+            "section": "Reverts"
+          },
+          {
+            "type": "docs",
+            "section": "Documentation",
+            "hidden": true
+          },
+          {
+            "type": "style",
+            "section": "Styles",
+            "hidden": true
+          },
+          {
+            "type": "test",
+            "section": "Tests",
+            "hidden": true
+          },
+          {
+            "type": "ignore",
+            "section": "Ignores",
+            "hidden": true
+          }
+        ]
+      }
+    }
+  }
+}

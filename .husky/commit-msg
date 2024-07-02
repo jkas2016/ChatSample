@@ -1,0 +1,7 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+NODE_MODULES=$(npm root -g) || exit 0
+export NODE_PATH=$NODE_PATH:${NODE_MODULES}
+
+npx --no -- commitlint --edit ${1}
