@@ -8,9 +8,11 @@ using Microsoft.IdentityModel.Tokens;
 namespace ChatSample.Controllers;
 
 [ApiController]
-[Route("[controller]/[action]")]
+[Route("[controller]")]
 public class LoginController(IConfiguration configuration) : ControllerBase
 {
+    private readonly string[] _testLoginIds = ["admin", "user"];
+    
     /// <summary>
     /// 로그인 후 JWT Access Token을 발급합니다.
     /// </summary>
@@ -20,7 +22,7 @@ public class LoginController(IConfiguration configuration) : ControllerBase
     public IActionResult Login([FromBody] LoginRequest request)
     {
         // TODO : 토큰 발급 로직 구현
-        if (request is { Email: "admin", Password: "admin" })
+        if (request.Password == "1234" && _testLoginIds.Contains(request.Email))
         {
             var token = GenerateJwtToken(request.Email);
             return Ok(new { Token = token });
