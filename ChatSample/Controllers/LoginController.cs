@@ -39,7 +39,8 @@ public class LoginController(IConfiguration configuration) : ControllerBase
         var claims = new[]
         {
             new Claim(JwtRegisteredClaimNames.Sub, email),
-            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+            new Claim(JwtRegisteredClaimNames.Name, email)
         };
 
         var token = new JwtSecurityToken(

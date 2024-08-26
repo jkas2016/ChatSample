@@ -2,11 +2,8 @@ document.getElementById('login-btn').addEventListener('click', function() {
     const username = document.getElementById('username').value;
     const password = document.getElementById('password').value;
 
-    axios.post('http://localhost:5129/login', {
-        email: username,
-        password: password
-    })
-        .then(function (response) {
+    axios.post('http://localhost:5129/login', {email: username, password: password})
+         .then(function (response) {
             if (response.status === 200 && response.data.token) {
                 localStorage.setItem('token', response.data.token);
                 document.getElementById('login-container').style.display = 'none';
@@ -42,7 +39,7 @@ function initializeSignalR(token) {
         const username = document.getElementById('username').value;
 
         if (message.trim() !== '') {
-            connection.invoke('SendMessage', username, message).catch(err => console.error(err.toString()));
+            connection.invoke('SendMessage', message).catch(err => console.error(err.toString()));
             document.getElementById('chat-input').value = '';
         }
     });
