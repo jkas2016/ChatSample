@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Text;
 
 namespace ChatSample.Commons;
 
@@ -24,14 +25,19 @@ public class AccessLoggingMiddleware(ILogger<AccessLoggingMiddleware> logger) : 
         // 요청 시간 측정 시작
         var stopwatch = Stopwatch.StartNew();
         
+        // Request 로깅
+        context.Request.EnableBuffering();
+        var requestBody = await new StreamReader(context.Request.Body, Encoding.UTF8).ReadToEndAsync();
+        context.Request.Body.Seek(0, SeekOrigin.Begin);
+        
         await next(context);
         
         // 응답 시간 측정 종료
         stopwatch.Stop();
 
         logger.LogInformation(
-            "{Method} {RequestPath} responded {StatusCode} in {ElapsedMilliseconds}ms",
-            context.Request.Method, context.Request.Path, context.Response.StatusCode, stopwatch.ElapsedMilliseconds
+            "{Method} {RequestPath} responded {StatusCode} in {ElapsedMilliseconds}ms -> {requestBody}",
+            context.Request.Method, context.Request.Path, context.Response.StatusCode, stopwatch.ElapsedMilliseconds, requestBody
         );
     }
 }

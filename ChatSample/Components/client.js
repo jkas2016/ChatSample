@@ -2,7 +2,7 @@ document.getElementById('login-btn').addEventListener('click', function() {
     const username = document.getElementById('username').value;
     const password = document.getElementById('password').value;
 
-    axios.post('http://localhost:5129/login', {email: username, password: password})
+    axios.post('http://localhost:5129/login', {userName: username, password: password})
          .then(function (response) {
             if (response.status === 200 && response.data.token) {
                 localStorage.setItem('token', response.data.token);
